@@ -44,15 +44,8 @@ class ProperFinder():
         if not sickbeard.DOWNLOAD_PROPERS:
             return
 
-        # look for propers every night at 1 AM
-        updateTime = datetime.time(hour=1)
-
-        logger.log(u"Checking proper time", logger.DEBUG)
-
-        hourDiff = datetime.datetime.today().time().hour - updateTime.hour
-
-        # if it's less than an interval after the update time then do an update
-        if hourDiff >= 0 and hourDiff < self.updateInterval.seconds/3600:
+        # look for propers every 2 hours
+        if datetime.datetime.today().time().hour % 2 == 0:
             logger.log(u"Beginning the search for new propers")
         else:
             return
